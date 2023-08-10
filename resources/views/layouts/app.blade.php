@@ -21,9 +21,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
-        <div class="min-h-screen bg-red -100">
+        <x-sidebar/>
+        <div class="min-h-screen bg-gray-100">
             <!-- Page Content -->
-            <main class="py-20">
+            <main>
                 {{ $slot }}
             </main>
         </div>
