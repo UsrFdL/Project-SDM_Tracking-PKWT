@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PkwtController;
+use App\Http\Controllers\TempPkwtController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +18,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('dashboard');
 // });
 
-Route::get('/', [PkwtController::class, 'index'])->name('dashboard');
-Route::post('/', [PkwtController::class, 'store']);
+Route::get('/', [TempPkwtController::class, 'home'])->name('dashboard');
+Route::get('/tambah-data', [TempPkwtController::class, 'tambahData']);
+Route::post('/tambah-data', [TempPkwtController::class, 'store']);
+
+
