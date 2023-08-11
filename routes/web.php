@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PkwtController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
+
+Route::get('/', [PkwtController::class, 'index'])->name('dashboard');
+Route::post('/', [PkwtController::class, 'store']);
