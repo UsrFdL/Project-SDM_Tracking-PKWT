@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TempPkwtController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
+// // Route::get('/', function () {
+// //     return view('dashboard');
+// // });
 
 Route::get('/', [TempPkwtController::class, 'home'])->name('dashboard');
-Route::get('/tambah-data', [TempPkwtController::class, 'tambahData']);
+Route::get('/tambah-data', [TempPkwtController::class, 'tambahData'])->name('tambah-data');
 Route::post('/tambah-data', [TempPkwtController::class, 'store']);
 
 
+
+Route::resource('karyawan', KaryawanController::class);

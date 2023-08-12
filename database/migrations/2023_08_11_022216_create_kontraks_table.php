@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('divisis', function (Blueprint $table) {
+        Schema::create('kontraks', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('karyawan_nik')->nullable();
+            $table->integer('lamaKontrak')->nullable();
+            $table->date('tglMulai')->nullable();
+            $table->date('tglSelesai')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('divisis');
+        Schema::dropIfExists('kontraks');
     }
 };

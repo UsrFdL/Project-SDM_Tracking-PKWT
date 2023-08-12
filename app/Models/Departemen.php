@@ -9,23 +9,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Divisi extends Model
+class Departemen extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'divisis';
+    protected $table = 'departemens';
     protected $fillable = [
         // 'karyawan_id',
+        'divisi_id',
         'nama',
     ];
 
     public function karyawan(): HasMany
     {
-        return $this->hasMany(Karyawan::class, 'divisi_id');
+        return $this->hasMany(Karyawan::class, 'departemen_id');
     }
 
-    public function departemen(): HasMany
+    public function divisi(): BelongsTo
     {
-        return $this->hasMany(departemen::class);
+        return $this->belongsTo(Divisi::class, '');
     }
 }

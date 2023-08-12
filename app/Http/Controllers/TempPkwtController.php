@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\departemen;
+use App\Models\Divisi;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
 class TempPkwtController extends Controller
@@ -19,6 +22,9 @@ class TempPkwtController extends Controller
     }
 
     public function home() {
-        return view('home');
+        // dd(Karyawan::find(1)->departemen->nama);
+        // dd(departemen::with('divisi')->get());
+        $data = Karyawan::all();
+        return view('home')->with('db', $data);
     }
 }

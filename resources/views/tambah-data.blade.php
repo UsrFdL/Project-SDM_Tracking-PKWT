@@ -36,7 +36,9 @@
                 </select>
             </div>
             {{-- <button type="submit" class="flex justify-start">kirim</button> --}}
-            <x-button class="flex justify-end">Kirim</x-button>
+            <div class="flex justify-end">
+                <x-button class="flex justify-end">Kirim</x-button>
+            </div>
         </form>
     </div>
 </x-app-layout>
