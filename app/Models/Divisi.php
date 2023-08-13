@@ -24,8 +24,8 @@ class Divisi extends Model
         return $this->hasMany(Karyawan::class, 'divisi_id');
     }
 
-    public function departemen(): HasMany
+    public function departemen(): BelongsTo
     {
-        return $this->hasMany(departemen::class);
+        return $this->belongsTo(departemen::class, 'divisi_id');
     }
 }

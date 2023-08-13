@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InputDataController;
 use App\Http\Controllers\TempPkwtController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaryawanController;
@@ -16,12 +18,12 @@ use App\Http\Controllers\KaryawanController;
 */
 
 // // Route::get('/', function () {
-// //     return view('dashboard');
+// //     return view('home');
 // // });
 
-Route::get('/', [TempPkwtController::class, 'home'])->name('dashboard');
-Route::get('/tambah-data', [TempPkwtController::class, 'tambahData'])->name('tambah-data');
-Route::post('/tambah-data', [TempPkwtController::class, 'store']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/input-data', [InputDataController::class, 'index'])->name('input-data');
+Route::post('/input-data', [TempPkwtController::class, 'store']);
 
 
 

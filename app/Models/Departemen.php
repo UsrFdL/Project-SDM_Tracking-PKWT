@@ -25,8 +25,13 @@ class Departemen extends Model
         return $this->hasMany(Karyawan::class, 'departemen_id');
     }
 
-    public function divisi(): BelongsTo
+    public function bagian(): BelongsTo
     {
-        return $this->belongsTo(Divisi::class, '');
+        return $this->belongsTo(Bagian::class, 'bagian_id');
+    }
+
+    public function divisi(): HasMany
+    {
+        return $this->hasMany(Divisi::class, 'divisi_id');
     }
 }
