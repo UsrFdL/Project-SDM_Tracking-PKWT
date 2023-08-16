@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InputDataController;
 use App\Http\Controllers\TempPkwtController;
@@ -20,11 +21,13 @@ use App\Http\Controllers\KaryawanController;
 // // Route::get('/', function () {
 // //     return view('home');
 // // });
-
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/input-data', [InputDataController::class, 'index'])->name('input-data');
-Route::post('/input-data', [TempPkwtController::class, 'store']);
-
-
-
-Route::resource('karyawan', KaryawanController::class);
+Route::middleware(['web'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/selesai', [HomeController::class, 'selesai'])->name('selesai');
+    
+    Route::get('/input-data', [InputDataController::class, 'index'])->name('input-data');
+    Route::post('/input-data', [InputDataController::class, 'store']);
+    
+    Route::get('/detail/{id}', [DetailController::class, 'index'])->name('detail');
+    Route::post('/detail/{id}', [DetailController::class, 'berhenti'])->name('detail.berhenti');
+});

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kontraks', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('karyawan_nik')->nullable();
-            $table->integer('lamaKontrak')->nullable();
+            $table->string('lamaKontrak')->nullable();
             $table->date('tglMulai')->nullable();
             $table->date('tglSelesai')->nullable();
             $table->softDeletes();

@@ -14,6 +14,9 @@ class Sto extends Component
 
     public function render()
     {
-        return view('livewire.sto')->with(['divisis' => Divisi::all(), 'departemens' => Departemen::all()]);
+        $divisis = Divisi::all();
+        $departemens = Departemen::all();
+
+        return view('livewire.sto', compact('divisis', 'departemens'));
     }
 }

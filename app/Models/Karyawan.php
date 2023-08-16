@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,6 +14,7 @@ class Karyawan extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'karyawans';
+    protected $dates = 'deleted_at';
     protected $fillable = [
         'nama',
         'nik',
@@ -37,8 +39,8 @@ class Karyawan extends Model
         return $this->belongsTo(Bagian::class, 'bagian_id');
     }
 
-    public function kontrak(): HasOne
+    public function kontrak(): HasMany
     {
-        return $this->hasOne(Kontrak::class);
+        return $this->hasMany(Kontrak::class, 'karyawan_nik', 'nik');
     }
 }

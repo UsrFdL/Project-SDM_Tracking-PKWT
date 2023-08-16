@@ -1,3 +1,3 @@
 <x-app-layout>
-    @livewire('show-karyawan')
+    @livewire('tabel-karyawan')
 </x-app-layout>

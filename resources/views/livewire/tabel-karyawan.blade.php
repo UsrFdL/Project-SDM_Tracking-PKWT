@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-4">
     <div class="flex flex-col items-center w-full gap-4">
-        <a href="{{ route('tambah-data') }}" class="self-start">
-            <x-button type="button">Input Data</x-button>
+        <a href="{{ route('input-data') }}" class="self-start">
+            <x-button type="button">Input data</x-button>
         </a>
         <div class="w-full">
             <form>
@@ -12,8 +12,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
-                    <input type="search" id="default-search" wire:model="query" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required>
-                    <button type="button" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    <input type="search" id="default-search" wire:model="query" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari Nama Karyawan..." required>
                 </div>
             </form>
         </div>
@@ -24,6 +23,9 @@
                 <tr>
                     <th scope="col" class="px-6 py-3 w-0">
                         No
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        NIK
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Nama
@@ -64,14 +66,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($karyawans as $karyawan)
+                @php
+                    $kontrakCount = count($karyawans);
+                @endphp
+                @for ($i = 0; $i < $kontrakCount; $i++)
+                    @php
+                        $karyawan = $karyawans[$i];
+                    @endphp
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $karyawan->id }}
+                            {{ $i+1 }}
                         </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $karyawan->nik }}
+                        </th>
+                        <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $karyawan->nama }}
                         </th>
                         <td class="px-6 py-4">
@@ -84,11 +94,11 @@
                             {{ $karyawan->bagian->nama }}
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="#"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <a href="{{ route('detail', ['id' => $karyawan->id]) }}"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Detail</a>
                         </td>
                     </tr>
-                @endforeach
+                @endfor
             </tbody>
         </table>
         <div class="flex justify-center">

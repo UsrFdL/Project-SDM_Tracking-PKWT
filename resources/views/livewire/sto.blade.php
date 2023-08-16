@@ -20,8 +20,8 @@
     <div class="flex flex-col mb-4">
         <label for="bagian">Bagian</label>
         <x-input-select name="bagian" id="bagian">
-            <option value="0">Teknologi</option>
-            <option value="0">HC dan GA</option>
+            <option value="1">Teknologi</option>
+            <option value="2">HC dan GA</option>
         </x-input-select>
     </div>
 </div>

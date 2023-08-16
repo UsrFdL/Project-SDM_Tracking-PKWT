@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Karyawan;
+use App\Models\Kontrak;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InputDataController extends Controller
@@ -27,7 +30,45 @@ class InputDataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        //Validasi data input
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'nik' => 'required',
+            'nip' => 'required',
+            'divisi' => 'required',
+            'departemen' => 'required',
+            'bagian' => 'required',
+            'lamaKontrak' => '',
+            'start' => 'required|date',
+            'end' => 'required|date|after:start',
+        ]);
+
+        // Simpan data karyawan
+        $cek = Karyawan::where('nik', $validatedData['nik'])->first();
+        if($cek) {
+            return redirect()->route('detail', ['id' => $cek->id])->with('pesan', 'NIK ' . $cek->nik . ' sudah ada');
+        }
+        else {
+            $karyawan = new Karyawan();
+            $karyawan->nama = $validatedData['nama'];
+            $karyawan->nik = $validatedData['nik'];
+            $karyawan->nip = $validatedData['nip'];
+            $karyawan->divisi_id = $validatedData['divisi'];
+            $karyawan->departemen_id = $validatedData['departemen'];
+            $karyawan->bagian_id = $validatedData['bagian'];
+            $karyawan->save();
+    
+            // Simpan data kontrak
+            $kontrak = new Kontrak();
+            $kontrak->karyawan_nik = $validatedData['nik'];
+            $kontrak->lamaKontrak = $validatedData['lamaKontrak'];
+            $kontrak->tglMulai = Carbon::parse($validatedData['start'])->format('Y-m-d');
+            $kontrak->tglSelesai = Carbon::parse($validatedData['end'])->format('Y-m-d');
+            $kontrak->save();
+    
+            return redirect()->route('home')->with('success', 'Karyawan dan kontrak berhasil ditambahkan');
+        }
     }
 
     /**

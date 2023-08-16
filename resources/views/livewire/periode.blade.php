@@ -11,7 +11,7 @@
                     </svg>
                 </div>
                 <input type="text" name="start" id="mulai" wire:model="mulai"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-white border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
                     placeholder="Select date">
             </div>
         </div>
@@ -26,13 +26,14 @@
                     </svg>
                 </div>
                 <input type="text" name="end" id="selesai" wire:model="selesai"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-white border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
                     placeholder="Select date">
             </div>
         </div>
         <div class="w-auto">
-            <h3>Lama Kerja</h3>
-            <p class="bg-white border border-gray-400 rounded-lg p-2">{{ $this->selisih() }}&nbsp;</p>
+            <label for="lamaKontrak">Lama Kontrak</label>
+            <p class="bg-white border border-gray-400 rounded-lg p-2.5 text-sm">{{ $this->selisih() }}&nbsp;</p>
+            <x-input-field type="text" name="lamaKontrak" id="lamaKontrak" value="{{ $this->selisih() }}" class="hidden" />
         </div>
     </div>
     {{-- <input type="date" name="" id="coba"> --}}
