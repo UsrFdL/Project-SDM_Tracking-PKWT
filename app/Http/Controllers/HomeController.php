@@ -14,4 +14,8 @@ class HomeController extends Controller
     public function selesai() {
         return view('selesai');
     }
+
+    public function akanSelesai() {
+        return view('akan-selesai');
+    }
 }

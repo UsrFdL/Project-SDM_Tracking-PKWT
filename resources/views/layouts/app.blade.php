@@ -27,7 +27,7 @@
         <!-- Page content here -->
         {{ $slot }}
     </x-sidebar>
-    <div id="notif" class="fixed top-12 right-0">
+    <div id="notif" class="fixed top-12 left-1/2 transform -translate-x-1/2">
         <x-alert-success />
         <x-alert-primary />
         <x-alert-danger />

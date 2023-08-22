@@ -34,8 +34,8 @@ class InputDataController extends Controller
         //Validasi data input
         $validatedData = $request->validate([
             'nama' => 'required',
-            'nik' => 'required',
-            'nip' => 'required',
+            'nik' => 'required|numeric|digits_between:1,11',
+            'nip' => 'required|numeric|digits_between:1,11',
             'divisi' => 'required',
             'departemen' => 'required',
             'bagian' => 'required',
@@ -45,9 +45,9 @@ class InputDataController extends Controller
         ]);
 
         // Simpan data karyawan
-        $cek = Karyawan::where('nik', $validatedData['nik'])->first();
+        $cek = Karyawan::withTrashed()->where('nik', $validatedData['nik'])->first();
         if($cek) {
-            return redirect()->route('detail', ['id' => $cek->id])->with('pesan', 'NIK ' . $cek->nik . ' sudah ada');
+            return redirect()->route('detail', ['nik' => $cek->nik])->with('pesan', 'NIK ' . $cek->nik . ' sudah ada, dengan nama ' . $cek->nama);
         }
         else {
             $karyawan = new Karyawan();

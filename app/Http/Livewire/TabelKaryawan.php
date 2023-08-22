@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Karyawan;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,6 +13,7 @@ class TabelKaryawan extends Component
     use WithPagination;
 
     public $query = '';
+    public $kategori = 'nama';
 
     public function search()
     {
@@ -20,18 +22,13 @@ class TabelKaryawan extends Component
 
     public function render()
     {
-        // return view('livewire.tabel-karyawan', [
-        //     'karyawans' => Karyawan::where('nama', 'like', '%'.$this->query.'%')->paginate(15),
-        // ]);
-        /* return view('livewire.tabel-karyawan', [
-            'karyawans' => Karyawan::whereHas('kontrak', function ($query) {
-                $query->where('tglSelesai', '>=', Carbon::now());
-            })->where('nama', 'like', '%' . $this->query . '%')->paginate(15),
-        ]); */
         return view('livewire.tabel-karyawan', [
-            'karyawans' => Karyawan::whereNull('deleted_at')
-                ->where('nama', 'like', '%' . $this->query . '%')
-                ->paginate(15),
+            'karyawans' => Cache::remember('karyawans', 60, function () {
+                return Karyawan::whereNull('deleted_at')
+                    ->with('departemen', 'divisi', 'bagian')
+                    ->where($this->kategori, 'like', '%' . $this->query . '%')
+                    ->paginate(50);
+            }),
         ]);
     }
 }

@@ -35,7 +35,7 @@ class Periode extends Component
             if ($diff->m !== 0) {
                 $parts[] = $diff->m . ' bulan';
             }
-            if ($diff->d !== 0) {
+            if ($diff->d !== 0 || ($diff->m === 0 && $diff->y === 0)) {
                 $parts[] = $diff->d . ' hari';
             }
 

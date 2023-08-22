@@ -31,6 +31,26 @@ class SeleksiKontrak
                 } elseif ($karyawan->trashed() && $karyawan->kontrak->last()->tglSelesai > Carbon::now()) {
                     $karyawan->restore(); // Restore karyawan jika ada kontrak yang belum selesai
                 }
+
+                //update lama kontrak
+                foreach ($karyawan->kontrak as $kontrak) {
+                    $startDate = Carbon::create($kontrak->tglMulai);
+                    $endDate = Carbon::create($kontrak->tglSelesai);
+                    $diff = $startDate->diff($endDate);
+                    $parts = [];
+                    if ($diff->y !== 0) {
+                        $parts[] = $diff->y . ' tahun';
+                    }
+                    if ($diff->m !== 0) {
+                        $parts[] = $diff->m . ' bulan';
+                    }
+                    if ($diff->d !== 0 || ($diff->m === 0 && $diff->y === 0)) {
+                        $parts[] = $diff->d . ' hari';
+                    }
+                    $lama = join(', ', $parts);
+                    $kontrak->lamaKontrak = $lama;
+                    $kontrak->save();
+                }
             }
         }
         
