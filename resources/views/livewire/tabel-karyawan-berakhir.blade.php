@@ -88,7 +88,7 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('detail', ['nik' => $karyawan->nik]) }}"
-                                class="font-medium text-blue-600hover:underline">Detail</a>
+                                class="font-medium text-blue-600 hover:underline">Detail</a>
                         </td>
                     </tr>
                 @endfor

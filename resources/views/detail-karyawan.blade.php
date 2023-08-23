@@ -77,7 +77,7 @@
             </form>
         </div>
         <div class="flex flex-row mb-4">
-            <div class="flex w-fit border-2 rounded-md">
+            <div class="flex w-fit border-2 rounded-lg">
             @php
                 $kontrakCount = count($karyawan->kontrak);
             @endphp
@@ -106,6 +106,22 @@
                         </tbody>
                     </table>
                 @endfor
+                <table>
+                    <tr class="border-b border-transparent">
+                        <th rowspan="3" colspan="2" class="px-6 py-2 border-b border-l text-center">Lama Kontrak</th>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="border-b">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 border-l text-center">{{ $duration }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

@@ -24,14 +24,14 @@ class Departemen extends Model
     {
         return $this->hasMany(Karyawan::class, 'departemen_id');
     }
-
-    public function bagian(): BelongsTo
+    
+    public function divisi(): BelongsTo
     {
-        return $this->belongsTo(Bagian::class, 'bagian_id');
+        return $this->belongsTo(Divisi::class, 'divisi_id');
     }
 
-    public function divisi(): HasMany
+    public function bagian(): HasMany
     {
-        return $this->hasMany(Divisi::class, 'divisi_id');
+        return $this->hasMany(Bagian::class, 'departemen_id');
     }
 }

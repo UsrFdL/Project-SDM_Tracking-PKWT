@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bagian;
 use App\Models\Departemen;
 use App\Models\Divisi;
 use App\Models\Karyawan;
@@ -16,7 +17,8 @@ class Sto extends Component
     {
         $divisis = Divisi::all();
         $departemens = Departemen::all();
+        $bagians = Bagian::all();
 
-        return view('livewire.sto', compact('divisis', 'departemens'));
+        return view('livewire.sto', compact('divisis', 'departemens', 'bagians'));
     }
 }

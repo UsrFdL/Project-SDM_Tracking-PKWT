@@ -12,7 +12,43 @@ class DetailController extends Controller
     public function index($nik)
     {
         $karyawan = Karyawan::withTrashed()->where('nik', $nik)->first();
-        return view('detail-karyawan', compact('karyawan'));
+
+        $totalHari = 0;
+        // $lamaKontrak = [];
+        $kontraks = $karyawan->kontrak;
+        forEach($kontraks as $kontrak) {
+            $startDate = Carbon::create($kontrak->tglMulai);
+            $endDate = Carbon::create($kontrak->tglSelesai);
+            // $diff = $startDate->diff($endDate);
+            // $lamaKontrak[] = $diff;
+            $diff = $startDate->diffInDays($endDate);
+            $totalHari += $diff;
+        }
+
+        $years = floor($totalHari / 365);
+        $remainingDays = $totalHari % 365;
+
+        $months = floor($remainingDays / 30);
+        $days = $remainingDays % 30;
+
+        $duration = '';
+
+        if ($years > 0) {
+            $duration .= "$years tahun, ";
+        }
+
+        if ($months > 0) {
+            $duration .= "$months bulan, ";
+        }
+
+        if ($days > 0) {
+            $duration .= "$days hari";
+        } else {
+            // Menghapus koma ekstra jika tidak ada hari yang ditampilkan
+            $duration = rtrim($duration, ', ');
+        }
+
+        return view('detail-karyawan', compact('karyawan', 'duration'));
     }
 
     public function berhenti(Request $request ,$nik)

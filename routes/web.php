@@ -23,26 +23,43 @@ use App\Http\Controllers\OrganisasiController;
 // //     return view('home');
 // // });
 Route::middleware(['web'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/selesai', [HomeController::class, 'selesai'])->name('selesai');
-    Route::get('/akan-selesai', [HomeController::class, 'akanSelesai'])->name('akan-selesai');
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::get('/selesai', 'selesai')->name('selesai');
+        Route::get('/akan-selesai', 'akanSelesai')->name('akan-selesai');
+    });
 
     Route::get('/input-data', [InputDataController::class, 'index'])->name('input-data');
     Route::post('/input-data', [InputDataController::class, 'store']);
 
-    Route::get('/{nik}/detail', [DetailController::class, 'index'])->name('detail');
-    Route::post('/{nik}/detail/berhenti', [DetailController::class, 'berhenti'])->name('detail.berhenti');
-    Route::post('/{nik}/detail/edit', [DetailController::class, 'editDetail'])->name('detail.edit');
+    Route::controller(DetailController::class)->group(function () {
+        Route::get('/{nik}/detail', 'index')->name('detail');
+        Route::post('/{nik}/detail/berhenti', 'berhenti')->name('detail.berhenti');
+        Route::post('/{nik}/detail/edit', 'editDetail')->name('detail.edit');
+    
+        Route::get('/{nik}/detail/tambah-kontrak', 'tambahKontrak')->name('detail.tambah-kontrak');
+        Route::post('/{nik}/detail/tambah-kontrak', 'storeKontrak');
+        // Route::Post('/detail/{id}/tambah-kontrak', 'storeKontrak');
+    });
 
-    Route::get('/{nik}/detail/tambah-kontrak', [DetailController::class, 'tambahKontrak'])->name('detail.tambah-kontrak');
-    Route::post('/{nik}/detail/tambah-kontrak', [DetailController::class, 'storeKontrak']);
-    // Route::Post('/detail/{id}/tambah-kontrak', [DetailController::class, 'storeKontrak']);
+    Route::controller(OrganisasiController::class)->group(function () {
+        Route::get('/divisi', 'divisi')->name('divisi');
+        Route::post('/divisi/tambah', 'tambahDivisi')->name('divisi.tambah');
+        Route::post('/divisi/edit', 'editDivisi')->name('divisi.edit');
+        Route::post('/divisi/hapus/', 'hapusDivisi')->name('divisi.hapus');
+    
+        Route::get('/departemen', 'departemen')->name('departemen');
+        Route::post('/departemen/tambah', 'tambahDepartemen')->name('departemen.tambah');
+        Route::post('/departemen/edit', 'editDepartemen')->name('departemen.edit');
+        Route::post('/departemen/hapus/', 'hapusDepartemen')->name('departemen.hapus');
 
-    Route::get('/divisi', [OrganisasiController::class, 'divisi'])->name('divisi');
-    Route::post('/divisi/hapus/', [OrganisasiController::class, 'hapusDivisi'])->name('divisi.hapus');
-    Route::post('/divisi/edit', [OrganisasiController::class, 'editDivisi'])->name('divisi.edit');
-    Route::post('/divisi/tambah', [OrganisasiController::class, 'tambahDivisi'])->name('divisi.tambah');
+        Route::get('/bagian', 'bagian')->name('bagian');
+        Route::post('/bagian/tambah', 'tambahBagian')->name('bagian.tambah');
+        Route::post('/bagian/edit', 'editBagian')->name('bagian.edit');
+        Route::post('/bagian/hapus/', 'hapusBagian')->name('bagian.hapus');
+    });
 
-    Route::get('/departemen', [OrganisasiController::class, 'departemen'])->name('departemen');
-    Route::get('/bagian', [OrganisasiController::class, 'bagian'])->name('bagian');
+    Route::get('/coba', function() {
+        return view('coba');
+    });
 });

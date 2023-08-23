@@ -16,23 +16,11 @@ class InputDataController extends Controller
     {
         return view('Input-data');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        // dd($request);
         //Validasi data input
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'nama' => 'required',
             'nik' => 'required|numeric|digits_between:1,11',
             'nip' => 'required|numeric|digits_between:1,11',
@@ -43,63 +31,42 @@ class InputDataController extends Controller
             'start' => 'required|date',
             'end' => 'required|date|after:start',
         ]);
+        $start = Carbon::create(Carbon::parse($validated['start'])->format('Y-m-d'));
+        $end = Carbon::create(Carbon::parse($validated['end'])->format('Y-m-d'));
+
+        $yearsDifference = $start->diffInYears($end);
+        $monthsDifference = $start->diffInMonths($end) % 12;
+        $daysDifference = $start->diffInDays($end);
 
         // Simpan data karyawan
-        $cek = Karyawan::withTrashed()->where('nik', $validatedData['nik'])->first();
+        $cek = Karyawan::withTrashed()->where('nik', $validated['nik'])->first();
         if($cek) {
             return redirect()->route('detail', ['nik' => $cek->nik])->with('pesan', 'NIK ' . $cek->nik . ' sudah ada, dengan nama ' . $cek->nama);
         }
         else {
             $karyawan = new Karyawan();
-            $karyawan->nama = $validatedData['nama'];
-            $karyawan->nik = $validatedData['nik'];
-            $karyawan->nip = $validatedData['nip'];
-            $karyawan->divisi_id = $validatedData['divisi'];
-            $karyawan->departemen_id = $validatedData['departemen'];
-            $karyawan->bagian_id = $validatedData['bagian'];
-            $karyawan->save();
-    
-            // Simpan data kontrak
-            $kontrak = new Kontrak();
-            $kontrak->karyawan_nik = $validatedData['nik'];
-            $kontrak->lamaKontrak = $validatedData['lamaKontrak'];
-            $kontrak->tglMulai = Carbon::parse($validatedData['start'])->format('Y-m-d');
-            $kontrak->tglSelesai = Carbon::parse($validatedData['end'])->format('Y-m-d');
-            $kontrak->save();
-    
-            return redirect()->route('home')->with('success', 'Karyawan dan kontrak berhasil ditambahkan');
+            if ($yearsDifference > 5 || ($yearsDifference == 5 && ($monthsDifference > 0 || $daysDifference > 0))) {
+                return redirect()->route('input-data')->withErrors(['kontrak.lebih' => 'Lama kontrak tidak boleh lebih dari 5 tahun']);
+            }
+            else {
+                $karyawan->nama = $validated['nama'];
+                $karyawan->nik = $validated['nik'];
+                $karyawan->nip = $validated['nip'];
+                $karyawan->divisi_id = $validated['divisi'];
+                $karyawan->departemen_id = $validated['departemen'];
+                $karyawan->bagian_id = $validated['bagian'];
+                $karyawan->save();
+        
+                // Simpan data kontrak
+                $kontrak = new Kontrak();
+                $kontrak->karyawan_nik = $validated['nik'];
+                $kontrak->lamaKontrak = $validated['lamaKontrak'];
+                $kontrak->tglMulai = Carbon::parse($validated['start'])->format('Y-m-d');
+                $kontrak->tglSelesai = Carbon::parse($validated['end'])->format('Y-m-d');
+                $kontrak->save();
+        
+                return redirect()->route('home')->with('success', 'Karyawan dan kontrak berhasil ditambahkan');
+            }
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

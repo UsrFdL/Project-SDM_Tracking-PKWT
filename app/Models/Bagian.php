@@ -24,8 +24,8 @@ class Bagian extends Model
         return $this->hasMany(Karyawan::class, 'bagian_id');
     }
 
-    public function bagian(): HasMany
+    public function departemen(): BelongsTo
     {
-        return $this->hasMany(Departemen::class, 'departemen_id');
+        return $this->belongsTo(Departemen::class, 'departemen_id');
     }
 }

@@ -23,12 +23,10 @@ class TabelKaryawan extends Component
     public function render()
     {
         return view('livewire.tabel-karyawan', [
-            'karyawans' => Cache::remember('karyawans', 60, function () {
-                return Karyawan::whereNull('deleted_at')
-                    ->with('departemen', 'divisi', 'bagian')
-                    ->where($this->kategori, 'like', '%' . $this->query . '%')
-                    ->paginate(50);
-            }),
+            'karyawans' => Karyawan::whereNull('deleted_at')
+                ->with('departemen', 'divisi', 'bagian')
+                ->where($this->kategori, 'like', '%' . $this->query . '%')
+                ->paginate(50),
         ]);
     }
 }

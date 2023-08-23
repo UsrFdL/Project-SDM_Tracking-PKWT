@@ -21,7 +21,7 @@
                         No
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nama Divisi
+                        Nama
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Edit</span>
@@ -29,29 +29,21 @@
                 </tr>
             </thead>
             <tbody class="text-base">
-                @php
-                    $lenOrganisasi = count($organisasis);
-                @endphp
-                @for ($i = 0; $i < $lenOrganisasi; $i++)
-                    @php
-                        $organisasi = $organisasis[$i];
-                    @endphp
-                    <tr class="bg-white border-b hover:bg-gray-100">
-                        <th scope="row" class="px-6 py-4 w-0 text-center font-medium text-gray-900 whitespace-nowrap">
-                            {{ ($i+1) + (($page-1) * 15) }}
-                        </th>
-                        <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            {{ $organisasi->nama }}
-                        </th>
-                        <td class="px-6 py-4 text-right text-blue-500">
-                            <button class="font-medium text-blue-600hover:underline" @click="edit = true, id = {{ $organisasi->id }}, organisasi = '{{ $organisasi }}'">Edit</button>
-                        </td>
-                    </tr>
-                @endfor
+                @php $i = 1 @endphp
+                @foreach ($organisasis as $organisasi)
+                <tr class="bg-white border-b hover:bg-gray-100">
+                    <th scope="row" class="px-6 py-4 w-0 text-center font-medium text-gray-900 whitespace-nowrap">
+                        {{ $i }} @php $i++ @endphp
+                    </th>
+                    <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {{ $organisasi->nama }}
+                    </th>
+                    <td class="px-6 py-4 text-right text-blue-500">
+                        <button class="font-medium text-blue-600 hover:underline" x-on:click="edit = true, data = {{ $organisasi }}">Edit</button>
+                    </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
-        <div class="flex justify-center">
-            {{ $organisasis->links('components.pagination') }}
-        </div>
     </div>
 </div>

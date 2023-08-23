@@ -24,6 +24,7 @@ class TabelKaryawanAkanSelesai extends Component
                 ->whereDate('tglSelesai', '>', Carbon::now());
             })
             ->paginate(15);
+            
         return view('livewire.tabel-karyawan-akan-selesai', [
             'karyawans' => $karyawans
         ]);        

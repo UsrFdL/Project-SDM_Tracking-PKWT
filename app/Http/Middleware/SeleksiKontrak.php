@@ -17,12 +17,7 @@ class SeleksiKontrak
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // $karyawans = Karyawan::with(['kontrak' => function ($query) {
-        //     $query->latest('tglSelesai')->limit(1);
-        // }])->get();
         $karyawans = Karyawan::withTrashed()->get();
-
-        // dd($karyawans[8]->kontrak->last());
 
         foreach ($karyawans as $karyawan) {
             if ($karyawan->kontrak->count() > 0) {
