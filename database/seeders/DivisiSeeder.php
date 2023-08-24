@@ -14,6 +14,7 @@ class DivisiSeeder extends Seeder
     public function run(): void
     {
         $divisis = [
+            '',
             'Sekretaris Perusahaan',
             'Satuan Pengawasan Intern',
             'Keuangan dan Akutansi',

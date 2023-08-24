@@ -46,7 +46,10 @@
                     @csrf
                     <div class="my-4">
                         <label for="divisi" class="font-roboto font-base text-lg">Divisi</label>
-                        <x-input-field id="divisi" name="divisi" type="text" x-bind:value="data.nama"/>
+                        <div class="relative w-full">
+                            <x-input-field id="divisi" name="divisi" type="text" x-bind:value="data.nama"/>
+                            <div x-text="'#'+data.id" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500"></div>
+                        </div>
                     </div>
                     <input type="hidden" name="id" x-bind:value="data.id" />
                     <div class="flex items-center justify-end gap-4 mt-4">

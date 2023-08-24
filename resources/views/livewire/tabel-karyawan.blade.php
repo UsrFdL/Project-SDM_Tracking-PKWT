@@ -51,6 +51,11 @@
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Lama Kerja
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Edit</span>
                     </th>
                 </tr>
@@ -85,6 +90,45 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $karyawan->bagian->nama }}
+                        </td>
+                        <td class="px-6 py-4">
+                            @php
+                                $totalHari = 0;
+                                // $lamaKontrak = [];
+                                $kontraks = $karyawan->kontrak;
+                                forEach($kontraks as $kontrak) {
+                                    $startDate = \Carbon\Carbon::create($kontrak->tglMulai);
+                                    $endDate = \Carbon\Carbon::create($kontrak->tglSelesai);
+                                    // $diff = $startDate->diff($endDate);
+                                    // $lamaKontrak[] = $diff;
+                                    $diff = $startDate->diffInDays($endDate);
+                                    $totalHari += $diff;
+                                }
+
+                                $years = floor($totalHari / 365);
+                                $remainingDays = $totalHari % 365;
+
+                                $months = floor($remainingDays / 30);
+                                $days = $remainingDays % 30;
+
+                                $duration = '';
+
+                                if ($years > 0) {
+                                    $duration .= "$years tahun, ";
+                                }
+
+                                if ($months > 0) {
+                                    $duration .= "$months bulan, ";
+                                }
+
+                                if ($days > 0) {
+                                    $duration .= "$days hari";
+                                } else {
+                                    // Menghapus koma ekstra jika tidak ada hari yang ditampilkan
+                                    $duration = rtrim($duration, ', ');
+                                }
+                            @endphp
+                            {{ $duration }}
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('detail', ['nik' => $karyawan->nik]) }}"

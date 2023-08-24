@@ -36,6 +36,7 @@ Route::middleware(['web'])->group(function () {
         Route::get('/{nik}/detail', 'index')->name('detail');
         Route::post('/{nik}/detail/berhenti', 'berhenti')->name('detail.berhenti');
         Route::post('/{nik}/detail/edit', 'editDetail')->name('detail.edit');
+        Route::post('/{nik}/detail/hapus', 'hapusKontrak')->name('kontrak.hapus');
     
         Route::get('/{nik}/detail/tambah-kontrak', 'tambahKontrak')->name('detail.tambah-kontrak');
         Route::post('/{nik}/detail/tambah-kontrak', 'storeKontrak');

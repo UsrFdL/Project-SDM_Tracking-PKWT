@@ -17,7 +17,7 @@
                     <x-logo-inka aria-hidden="true" class="h-8"/>
                 </a>
             </div>
-            <div class="flex items-center">
+            {{-- <div class="flex items-center">
                 <div class="flex items-center ml-3">
                     <div>
                         <button type="button"
@@ -58,7 +58,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </nav>
@@ -71,12 +71,8 @@
             <li>
                 <a href="{{ route('home') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                    <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                        <path
-                            d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                        <path
-                            d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                    <svg class="h-5" viewBox="0 0 105 105" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18 0C8.05888 0 0 8.05887 0 18V87C0 96.9411 8.05887 105 18 105H87C96.9411 105 105 96.9411 105 87V18C105 8.05888 96.9411 0 87 0H18ZM6 18C6 11.3726 11.3726 6 18 6H50V33H6V18ZM50 39H6V66H50L50 39ZM56 66L56 39H99V66H56ZM50 72H6V87C6 93.6274 11.3726 99 18 99H50V72ZM56 99V72H99V87C99 93.6274 93.6274 99 87 99H56ZM56 33V6H87C93.6274 6 99 11.3726 99 18V33H56Z" fill="#6b7280"/>
                     </svg>
                     <span class="ml-3">Aktif</span>
                 </a>
@@ -84,12 +80,8 @@
             <li>
                 <a href="{{ route('akan-selesai') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                    <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                        <path
-                            d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                        <path
-                            d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                    <svg class="h-5" viewBox="0 0 110 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18 0C8.05888 0 0 8.05887 0 18V87C0 96.9411 8.05887 105 18 105H56L56 104L56 99V39H99H102H105V18C105 8.05888 96.9411 0 87 0H18ZM50 72V99H18C11.3726 99 6 93.6274 6 87V72H50ZM50 66H6V39H50L50 66ZM50 33H6V18C6 11.3726 11.3726 6 18 6H50V33ZM56 33V6H87C93.6274 6 99 11.3726 99 18V33H56ZM67 64C64.2386 64 62 66.2386 62 69C62 71.7614 64.2386 74 67 74H105C107.761 74 110 71.7614 110 69C110 66.2386 107.761 64 105 64H67Z" fill="#6b7280"/>
                     </svg>
                     <span class="ml-3">Akan Selesai</span>
                 </a>
@@ -97,12 +89,8 @@
             <li>
                 <a href="{{ route('selesai') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                    <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                        <path
-                            d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                        <path
-                            d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                    <svg class="h-5" viewBox="0 0 105 105" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 18C0 8.05887 8.05888 0 18 0H87C96.9411 0 105 8.05888 105 18V39H102H99H56V99L56 104L56 105H18C8.05887 105 0 96.9411 0 87V18ZM50 99V72H6V87C6 93.6274 11.3726 99 18 99H50ZM6 66H50L50 39H6V66ZM6 33H50V6H18C11.3726 6 6 11.3726 6 18V33ZM56 6V33H99V18C99 11.3726 93.6274 6 87 6H56ZM69.0294 52.0294C70.9821 50.0768 74.1479 50.0768 76.1005 52.0294L86 61.9289L95.8995 52.0294C97.8521 50.0768 101.018 50.0768 102.971 52.0294C104.923 53.9821 104.923 57.1479 102.971 59.1005L93.0711 69L102.971 78.8995C104.923 80.8521 104.923 84.0179 102.971 85.9706C101.018 87.9232 97.8521 87.9232 95.8995 85.9706L86 76.0711L76.1005 85.9706C74.1479 87.9232 70.9821 87.9232 69.0294 85.9706C67.0768 84.0179 67.0768 80.8521 69.0294 78.8995L78.9289 69L69.0294 59.1005C67.0768 57.1479 67.0768 53.9821 69.0294 52.0294Z" fill="#6B7280"/>
                     </svg>
                     <span class="ml-3">Selesai</span>
                 </a>
@@ -114,8 +102,7 @@
                     class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path
-                            d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                        <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
                     </svg>
                     <span class="flex-1 ml-3 whitespace-nowrap">Divisi</span>
                 </a>
@@ -125,8 +112,7 @@
                     class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path
-                            d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                        <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
                     </svg>
                     <span class="flex-1 ml-3 whitespace-nowrap">Departemen</span>
                 </a>
@@ -136,8 +122,7 @@
                     class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                        <path
-                            d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                        <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
                     </svg>
                     <span class="flex-1 ml-3 whitespace-nowrap">Bagian</span>
                 </a>

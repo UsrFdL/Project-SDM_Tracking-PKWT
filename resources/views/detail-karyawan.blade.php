@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div x-data="{ edit: false }" class="bg-white rounded-lg py-4 px-6">
+    <div x-data="{ edit: false, edtKontrak: false }" class="bg-white rounded-lg py-4 px-6">
         <a href="{{ route('home') }}">
             <button class="inline-flex items-center font-roboto text-blue-500 mb-4">
                 <svg class="h-3.5 mr-1" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="backAltIconTitle" stroke="#3f83f8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title id="backAltIconTitle">Back</title> <path d="M4 12l15-9v18z"></path> </g></svg>
@@ -58,15 +58,23 @@
                                 <p :class="{ 'hidden': edit, 'block': ! edit }" class="ml-4">{{ $karyawan->bagian->nama }}</p>
                             </div>
                         </div>
-                        <div :class="{ 'hidden': ! edit, 'block': edit }" class="hidden">
+                        <div :class="{ 'hidden': ! edit, 'block': edit }" class="hidden"
+                            x-data="{ 
+                                divisi: null,
+                                departemen: null,
+                                bagian: null
+                            }">
                             @livewire('sto')
+                            <template x-init="divisi = {{ $karyawan->divisi->id }}"></template>
+                            <template x-init="departemen = {{ $karyawan->departemen->id }}"></template>
+                            <template x-init="bagian = {{ $karyawan->bagian->id }}"></template>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-end gap-4">
                     {{-- <a href="{{ route('detail.tambah-kontrak', ['nik' => $karyawan->nik]) }}"> --}}
                     <div :class="{ 'hidden': edit, 'block': ! edit }">
-                        <x-button type="button" @click="edit = ! edit" class="bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-600 focus:ring-blue-300">Edit</x-button>
+                        <x-button type="button" @click="edit = ! edit" class="bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-600 focus:ring-blue-300">Edit profil</x-button>
                     </div>
                     <div :class="{ 'hidden': ! edit, 'flex': edit }" class="hidden gap-2">
                         <x-button type="button" @click="edit = ! edit" class="bg-red-500 hover:bg-red-400 focus:bg-red-400 active:bg-red-600 focus:ring-red-300">Batal</x-button>
@@ -76,8 +84,8 @@
                 </div>
             </form>
         </div>
-        <div class="flex flex-row mb-4">
-            <div class="flex w-fit border-2 rounded-lg">
+        <div class="relative overflow-x-auto mb-4 border-2 rounded-lg">
+            <div class="flex flex-row">
             @php
                 $kontrakCount = count($karyawan->kontrak);
             @endphp
@@ -85,10 +93,19 @@
                 @php
                     $kontrak = $karyawan->kontrak[$i];
                 @endphp
-                    <table @if ($i > 0) class="border-l" @endif>
+                    <table class="flex-shrink-0 {{ $i > 0 ? 'border-l' : '' }}">
                         <thead>
                             <tr class="border-b">
-                                <th colspan="2" class="px-6 py-2">{{ "Kontrak " . ($i+1) }}</th>
+                                <th colspan="2" class="px-6 py-2 items-center">
+                                    <form action="{{ route('kontrak.hapus', ['nik' => $karyawan->nik]) }}" method="POST">
+                                        @csrf
+                                        {{ "Kontrak " . ($i+1) }}
+                                        <input type="hidden" name="kontrak" value="{{ $kontrak->id }}">
+                                        <button :class="{'': edtKontrak, 'hidden': ! edtKontrak}" class="hidden">
+                                            <svg class="h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f98080"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                        </button>
+                                    </form>
+                                </th>
                             </tr>
                             <tr>
                                 <td class="px-6 py-2 border-b">Awal</td>
@@ -106,9 +123,9 @@
                         </tbody>
                     </table>
                 @endfor
-                <table>
+                <table class="flex-shrink-0 border-r">
                     <tr class="border-b border-transparent">
-                        <th rowspan="3" colspan="2" class="px-6 py-2 border-b border-l text-center">Lama Kontrak</th>
+                        <th rowspan="3" colspan="2" class="px-6 py-2 border-b border-l text-center">Lama Kerja</th>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
@@ -123,6 +140,9 @@
                     </tr>
                 </table>
             </div>
+        </div>
+        <div class="flex justify-end">
+            <x-button type="button" x-on:click="edtKontrak = ! edtKontrak" x-text="edtKontrak ? 'Batal' : 'Edit Kontrak'" class="bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-600 focus:ring-blue-300"></x-button>
         </div>
     </div>
     {{-- <div>

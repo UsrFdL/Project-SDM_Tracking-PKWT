@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bagian;
+use App\Models\Departemen;
+use App\Models\Divisi;
 use App\Models\Karyawan;
 use App\Models\Kontrak;
 use Carbon\Carbon;
@@ -14,7 +17,11 @@ class InputDataController extends Controller
      */
     public function index()
     {
-        return view('Input-data');
+        $divisis = Divisi::all();
+        $departemens = Departemen::all();
+        $bagians = Bagian::all();
+
+        return view('Input-data', compact('divisis', 'departemens', 'bagians'));
     }
     
     public function store(Request $request)
@@ -65,7 +72,7 @@ class InputDataController extends Controller
                 $kontrak->tglSelesai = Carbon::parse($validated['end'])->format('Y-m-d');
                 $kontrak->save();
         
-                return redirect()->route('home')->with('success', 'Karyawan dan kontrak berhasil ditambahkan');
+                return redirect()->route('home')->with('success', 'Kontrak karyawan ' . $validated['nama'] . ' berhasil ditambahkan');
             }
         }
     }

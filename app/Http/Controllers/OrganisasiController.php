@@ -23,7 +23,7 @@ class OrganisasiController extends Controller
     public function editDivisi(Request $request)
     {
         $validated = $request->validate([
-            'divisi' => 'required',
+            'divisi' => '',
         ],
         [
             'divisi.required' => 'Nama divisi harus diisi',
@@ -43,21 +43,21 @@ class OrganisasiController extends Controller
     public function tambahDivisi(Request $request)
     {
         $validated = $request->validate([
-            'divisi' => 'required',
+            'divisi' => '',
         ],
         [
             'divisi.required' => 'Nama divisi harus diisi',
         ]);
 
         $divisi = Divisi::create([
-            'nama' => $validated['divisi'],
+            'nama' => $request->input('divisi') == null ? '' : $request->input('divisi'),
         ]);
 
         if ($divisi) {
-            return redirect()->route('divisi')->with('success', 'Divisi ' . $validated['divisi'] . ' berhasil ditambahkan');
+            return redirect()->route('divisi')->with('success', 'Divisi ' . $request->input('divisi') . ' berhasil ditambahkan');
         }
         else {
-            return redirect()->route('divisi')->withErrors(['tambah.gagal' => 'Gagal menambahkan divisi ' . $validated['divisi']]);
+            return redirect()->route('divisi')->withErrors(['tambah.gagal' => 'Gagal menambahkan divisi ' . $request->input('divisi')]);
         }
     }
 
@@ -119,7 +119,7 @@ class OrganisasiController extends Controller
     public function editDepartemen(Request $request)
     {
         $validated = $request->validate([
-            'departemen' => 'required',
+            'departemen' => '',
         ],
         [
             'departemen.required' => 'Nama divisi harus diisi',

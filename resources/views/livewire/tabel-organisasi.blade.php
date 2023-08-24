@@ -29,17 +29,16 @@
                 </tr>
             </thead>
             <tbody class="text-base">
-                @php $i = 1 @endphp
-                @foreach ($organisasis as $organisasi)
+                @foreach ($organisasis as $index => $organisasi)
                 <tr class="bg-white border-b hover:bg-gray-100">
                     <th scope="row" class="px-6 py-4 w-0 text-center font-medium text-gray-900 whitespace-nowrap">
-                        {{ $i }} @php $i++ @endphp
+                        {{ $index + 1 }}
                     </th>
                     <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {{ $organisasi->nama }}
                     </th>
                     <td class="px-6 py-4 text-right text-blue-500">
-                        <button class="font-medium text-blue-600 hover:underline" x-on:click="edit = true, data = {{ $organisasi }}">Edit</button>
+                        <button class="font-medium text-blue-600 hover:underline" x-on:click="edit = true, data = {{ $organisasi }}">Selengkapnya</button>
                     </td>
                 </tr>
                 @endforeach

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bagian;
+use App\Models\Departemen;
+use App\Models\Divisi;
 use App\Models\Karyawan;
 use App\Models\Kontrak;
 use Carbon\Carbon;
@@ -12,6 +15,9 @@ class DetailController extends Controller
     public function index($nik)
     {
         $karyawan = Karyawan::withTrashed()->where('nik', $nik)->first();
+        $divisis = Divisi::all();
+        $departemens = Departemen::all();
+        $bagians = Bagian::all();
 
         $totalHari = 0;
         // $lamaKontrak = [];
@@ -27,7 +33,6 @@ class DetailController extends Controller
 
         $years = floor($totalHari / 365);
         $remainingDays = $totalHari % 365;
-
         $months = floor($remainingDays / 30);
         $days = $remainingDays % 30;
 
@@ -41,14 +46,14 @@ class DetailController extends Controller
             $duration .= "$months bulan, ";
         }
 
-        if ($days > 0) {
+        if ($days > 0 || ($years == 0 && $months == 0)) {
             $duration .= "$days hari";
         } else {
             // Menghapus koma ekstra jika tidak ada hari yang ditampilkan
             $duration = rtrim($duration, ', ');
         }
 
-        return view('detail-karyawan', compact('karyawan', 'duration'));
+        return view('detail-karyawan', compact('karyawan', 'divisis', 'departemens', 'bagians', 'duration'));
     }
 
     public function berhenti(Request $request ,$nik)
@@ -75,7 +80,7 @@ class DetailController extends Controller
         $kontrak->tglSelesai = Carbon::now();
         $kontrak->save();
 
-        return back()->with('success', 'Berhasil');
+        return back()->with('success', 'Berhasil menghentikan kontrak');
     }
 
     public function tambahKontrak($nik)
@@ -87,21 +92,72 @@ class DetailController extends Controller
     public function storeKontrak(Request $request, $nik)
     {
         $karyawan = Karyawan::withTrashed()->where('nik', $nik)->first();
+        
+        $nextHari = 0;
+        $start = Carbon::create(Carbon::parse($request->input('start'))->format('Y-m-d'));
+        $end = Carbon::create(Carbon::parse($request->input('end'))->format('Y-m-d'));
+        $diff = $start->diffInDays($end);
+        $nextHari += $diff;
+
+        $totalHari = 0;
+        // $lamaKontrak = [];
+        $kontraks = $karyawan->kontrak;
+        forEach($kontraks as $kontrak) {
+            $startDate = Carbon::create($kontrak->tglMulai);
+            $endDate = Carbon::create($kontrak->tglSelesai);
+            // $diff = $startDate->diff($endDate);
+            // $lamaKontrak[] = $diff;
+            $diff = $startDate->diffInDays($endDate);
+            $totalHari += $diff;
+        }
+
+        $years = floor((1825 - $totalHari) / 365);
+        $remainingDays = (1825 - $totalHari) % 365;
+        $months = floor($remainingDays / 30);
+        $days = $remainingDays % 30;
+
+        $duration = '';
+
+        if ($years > 0) {
+            $duration .= "$years tahun, ";
+        }
+
+        if ($months > 0) {
+            $duration .= "$months bulan, ";
+        }
+
+        if ($days > 0) {
+            $duration .= "$days hari";
+        } else {
+            // Menghapus koma ekstra jika tidak ada hari yang ditampilkan
+            $duration = rtrim($duration, ', ');
+        }
 
         if ($karyawan->kontrak->last()->tglSelesai > Carbon::now()) {
-            $kontrakTerakhir = $karyawan->kontrak->last();
-            $kontrakTerakhir->tglSelesai = Carbon::parse($request->input('start'))->format('Y-m-d');
-            $kontrakTerakhir->save();
+            // /* Irisan kontrak */
+            // $kontrakTerakhir = $karyawan->kontrak->last();
+            // $kontrakTerakhir->tglSelesai = Carbon::parse($request->input('start'))->format('Y-m-d');
+            // $kontrakTerakhir->save();
+            return redirect()->route('detail', ['nik' => $nik])->withErrors(['gagal.tambah' => 'Kontrak tidak bisa ditambah karena belum berakhir']);
+        } else {
+            if (($totalHari + $nextHari) >= 1825) {
+                return redirect()->route('detail', ['nik' => $nik])->withErrors(['kontrak.lebih' => 'Lama kontrak tidak boleh lebih dari 5 tahun', 'sisa.kontrak' => 'Kontrak tersisa kurang lebih ' . $duration]);
+            }
+            else if($nextHari < 1) {
+                return redirect()->route('detail', ['nik' => $nik])->withErrors(['kontrak.kurang' => 'Lama kontrak tidak boleh kurang dari 1 hari']);
+            }
+            else {
+                $kontrak = new Kontrak();
+                $kontrak->karyawan_nik = $nik;
+                $kontrak->lamaKontrak = $request->input('lamaKontrak');
+                $kontrak->tglMulai = Carbon::parse($request->input('start'))->format('Y-m-d');
+                $kontrak->tglSelesai = Carbon::parse($request->input('end'))->format('Y-m-d');
+                $kontrak->save();
+        
+                return redirect()->route('detail', ['nik' => $nik])->with('success', 'Kontrak berhasil ditambahkan');
+            }
         }
         
-        $kontrak = new Kontrak();
-        $kontrak->karyawan_nik = $nik;
-        $kontrak->lamaKontrak = $request->input('lamaKontrak');
-        $kontrak->tglMulai = Carbon::parse($request->input('start'))->format('Y-m-d');
-        $kontrak->tglSelesai = Carbon::parse($request->input('end'))->format('Y-m-d');
-        $kontrak->save();
-
-        return redirect()->route('detail', ['nik' => $nik])->with('success', 'Kontrak berhasil ditambahkan');
     }
 
     public function editDetail(Request $request, $nik) 
@@ -126,5 +182,15 @@ class DetailController extends Controller
         $karyawan->save();
 
         return back()->with('success', 'Detail karyawan berhasil diperbarui');
+    }
+
+    public function hapusKontrak(Request $request, $nik)
+    {
+        $karyawan = Karyawan::withTrashed()->where('nik', $nik)->first();
+        $kontrak = $karyawan->kontrak()->where('id', $request->input('kontrak'))->first();
+        $kontrak->delete();
+        $kontrak->save();
+
+        return redirect()->route('detail', ['nik' => $nik])->with('success', 'Kontrak berhasil dihapus');
     }
 }
