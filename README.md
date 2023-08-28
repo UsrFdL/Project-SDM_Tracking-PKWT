@@ -82,14 +82,35 @@ composer install
 ```
 npm install
 ```
-4. Buka terminal dan jalankan di terminal yang berbeda
+4. Ubah .env.example menjadi .env dengan cara
+```
+cp .env.example .env
+```
+5. Ubah koneksi database dari .env
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=#nama tabel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+6. Generate key baru
+```
+php artisan key:generate
+```
+7. Jalankan migration, sebelum itu pastikan telah menjalankan mySQL
+```
+php artisan migrate:fresh --seed
+```
+8. Buka terminal dan jalankan di terminal yang berbeda
 ```
 npm run dev
 ```
 ```
 php artisan serve --port=8000
 ```
-5. Buka browser dan tuliskan alamat
+9. Buka browser dan tuliskan alamat
 ```
 127.0.0.1:8000
 # atau
