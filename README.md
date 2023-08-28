@@ -64,3 +64,34 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Installation
+1. Clone repositry:
+```
+git clone https://github.com/UsrFdL/Project-SDM_Tracking-PKWT.git
+```
+2. Navigasikan ke direktori yang telah di clone dengan cara:
+```
+cd ./Project-SDM_Tracking-PKWT
+```
+
+3. Jalankan perintah
+```
+composer install
+```
+```
+npm install
+```
+4. Buka terminal dan jalankan di terminal yang berbeda
+```
+npm run dev
+```
+```
+php artisan serve --port=8000
+```
+5. Buka browser dan tuliskan alamat
+```
+127.0.0.1:8000
+# atau
+localhost:8000
+```
