@@ -35,7 +35,7 @@
                         {{ $index + 1 }}
                     </th>
                     <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {{ $organisasi->nama }}
+                        {{ $organisasi->nama }} <span class="font-roboto text-gray-400">{{ ' #' . $organisasi->id }}</span>
                     </th>
                     <td class="px-6 py-4 text-right text-blue-500">
                         <button class="font-medium text-blue-600 hover:underline" x-on:click="edit = true, data = {{ $organisasi }}">Selengkapnya</button>

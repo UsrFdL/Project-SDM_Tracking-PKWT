@@ -62,7 +62,7 @@
                     @csrf
                     <div class="my-4">
                         <label for="divisi" class="font-roboto font-base text-lg">Divisi</label>
-                        <p id="divisi" class="ml-2.5 text-sm" x-text="data.divisi.nama"></p>
+                        <div id="divisi" class="ml-2.5 text-sm" x-html="`<p>${data.divisi.nama} <span class='font-roboto text-gray-400'>#${data.divisi.id}</span><p>`"></div>
                     </div>
                     <div>
                         <label for="departemen" class="font-roboto font-base text-lg">Departemen</label>

@@ -75,11 +75,11 @@
                     @csrf
                     <div class="my-4">
                         <label for="divisi" class="font-roboto font-base text-lg">Divisi</label>
-                        <p id="divisi" class="ml-2.5 text-sm" x-text="departemens[data.departemen_id-1].divisi.nama"></p>
+                        <p id="divisi" class="ml-2.5 text-sm" x-html="`<p>${departemens[data.departemen_id-1].divisi.nama} <span class='font-roboto text-gray-400'>#${departemens[data.departemen_id-1].divisi.id}</span><p>`"></p>
                     </div>
                     <div class="my-4">
                         <label for="departemen" class="font-roboto font-base text-lg">Departemen</label>
-                        <p id="departemen" class="ml-2.5 text-sm" x-text="data.departemen.nama"></p>
+                        <p id="departemen" class="ml-2.5 text-sm" x-html="`<p>${data.departemen.nama} <span class='font-roboto text-gray-400'>#${data.departemen.id}</span><p>`"></p>
                     </div>
                     <div>
                         <label for="bagian" class="font-roboto font-base text-lg">Bagian</label>

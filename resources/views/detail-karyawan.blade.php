@@ -96,14 +96,16 @@
                     <table class="flex-shrink-0 {{ $i > 0 ? 'border-l' : '' }}">
                         <thead>
                             <tr class="border-b">
-                                <th colspan="2" class="px-6 py-2 items-center">
-                                    <form action="{{ route('kontrak.hapus', ['nik' => $karyawan->nik]) }}" method="POST">
+                                <th colspan="2" class="relative px-6 py-2 items-center">
+                                    {{ "Kontrak " . ($i+1) }}
+                                    <form action="{{ route('kontrak.hapus', ['nik' => $karyawan->nik]) }}" method="POST" class="absolute right-4 top-1/2 transform -translate-y-1/2">
                                         @csrf
-                                        {{ "Kontrak " . ($i+1) }}
-                                        <input type="hidden" name="kontrak" value="{{ $kontrak->id }}">
-                                        <button :class="{'': edtKontrak, 'hidden': ! edtKontrak}" class="hidden">
-                                            <svg class="h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f98080"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                                        </button>
+                                        <div class="flex">
+                                            <input type="hidden" name="kontrak" value="{{ $kontrak->id }}">
+                                            <button :class="{'': edtKontrak, 'hidden': ! edtKontrak}" class="hidden">
+                                                <svg class="h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f98080"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#f98080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                            </button>
+                                        </div>
                                     </form>
                                 </th>
                             </tr>
