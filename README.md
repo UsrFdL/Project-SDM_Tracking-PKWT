@@ -110,6 +110,10 @@ npm run dev
 ```
 php artisan serve --port=8000
 ```
+atau jika error `Failed to listen on 127.0.0.1:8001 (reason: ?).` jalankan:
+```
+php -S localhost:8000 -t public/
+```
 9. Buka browser dan tuliskan alamat
 ```
 127.0.0.1:8000
